@@ -2,12 +2,6 @@ import Groq from "groq-sdk";
 import type { GroqChatMessage, LearningPathResponse } from "../types/learning-path.types";
 import type { ValidatedUserProfile } from "../validators/learning-path.validator";
 
-// Load API key strictly from environment (no hardcoded fallback)
-const GROQ_API_KEY = process.env.GROQ_API_KEY;
-if (!GROQ_API_KEY) {
-  throw new Error("Missing GROQ_API_KEY environment variable");
-}
-
 /**
  * Service for interacting with GROQ API
  */
@@ -16,9 +10,11 @@ export class GroqService {
   private readonly model = "llama-3.3-70b-versatile";
 
   constructor() {
-    this.client = new Groq({
-      apiKey: GROQ_API_KEY,
-    });
+    const apiKey = process.env.GROQ_API_KEY;
+    if (!apiKey) {
+      throw new Error("Missing GROQ_API_KEY environment variable");
+    }
+    this.client = new Groq({ apiKey });
   }
 
   /**

@@ -1,4 +1,4 @@
-import { groqService } from "./services/groq.service";
+import { GroqService } from "./services/groq.service";
 import { userProfileSchema } from "./validators/learning-path.validator";
 
 async function readRequestJson(req: any): Promise<unknown> {
@@ -47,6 +47,7 @@ export default async function handler(req: any, res: any) {
     const body = (await readRequestJson(req)) as unknown;
     const validatedProfile = userProfileSchema.parse(body);
 
+    const groqService = new GroqService();
     const result = await groqService.generateLearningPath(validatedProfile);
 
     res.setHeader("Content-Type", "application/json");
