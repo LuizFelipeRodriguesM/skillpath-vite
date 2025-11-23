@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import http from 'http';
 import url from 'url';
-import { groqService } from './api/services/groq.service.js';
-import { userProfileSchema } from './api/validators/learning-path.validator.js';
+import { groqService } from './server-lib/services/groq.service.js';
+import { userProfileSchema } from './server-lib/validators/learning-path.validator.js';
 
 const PORT = process.env.PORT || 3001;
 
